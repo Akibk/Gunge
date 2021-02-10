@@ -3,21 +3,8 @@
 <body>
 	<h1> Welcome to Gunge </h1>
 
-	<p id = "messme"> doo </p>
+	<p id = "messme"> doo doo</p>
 	<script>
-
-		//checkTub("1Xy7UP_5Fto");
-		getvalidVid();
-		async function checkTub(vid) {
-			var url = "https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v="+vid+"&format=json"
-			let response = await fetch(url);
-			return response;
-			//let youjson = await response.text();
-			//if (response.ok){
-			//	alert( "BEEP");
-			//}
-			//document.getElementById("messme").innerHTML = youjson;
-		}
 
 		function genVID() {
 			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
@@ -30,30 +17,31 @@
 		}
 
 		async function getvalidVid(){
-			//vid = genVID();
-			vid = "1Xy7UP_5Fto";
-			let response = await checkTub(vid);
-			let youjson = await response.text();
-			if (response.ok){
-				alert( "BEEP");
+			vid = genVID();
+			alert("VID: " + vid);
+			//vid = "1Xy7UP_5Fto";
+			var url = "https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v="+vid+"&format=json"
+			let response = await fetch(url);
+			if (!response.ok) {
+				throw new Error("HTTP ERROR");
+			} else {
+				return vid;
 			}
-			document.getElementById("messme").innerHTML = youjson;
-		//	mytext = response.text();
-		//	document.getElementById("messme").innerHTML = mytext;
-		//	return response.text;
-		//	if (response.ok){
-		//		return response.text;
-		//	} else {
-		//		return getvalidVaid();
-		//	}
 		}
-
-		function resolveJSON(jsonobj){
-			res = jsonobj.text();
-			document.getElementById("messme").innerHTML = res;
+		
+		function placeTub(vid){
+			var ifrm = document.createElement("iframe")
+			ifrm.setAttribute("src", "https://www.youtube-nocookie.com/embed/"+vid);
+			ifrm.setAttribute("frameborder", "0");
+			ifrm.style.width = "560px";
+			ifrm.style.height = "480px";
+			ifrm.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+			document.body.appendChild(ifrm);
+			//document.getElementById("messme").innerHTML = jsonobj;
 		}
 
 
+		getvalidVid().then(placeTub);
 
 	</script>
 </body>	
