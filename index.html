@@ -18,11 +18,12 @@
 
 		async function getvalidVid(){
 			vid = genVID();
-			//alert("VID: " + vid);
 			//vid = "1Xy7UP_5Fto";
 			var url = "https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v="+vid+"&format=json"
 			let response = await fetch(url);
 			if (!response.ok) {
+
+				document.getElementById("messme").innerHTML = vid;
 				return await getvalidVid();
 			} else {
 				return vid;
