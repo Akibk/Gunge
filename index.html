@@ -5,10 +5,14 @@
 
 	<p id = "messme"> doo </p>
 	<script>
-		getText();
-		async function getText() {
-			let yousite = await fetch("https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=1Xy7UP_5Fto&format=json");
-			let youjson = await yousite.text();
+		getText("1Xy7UP_5Fto");
+		async function getText(vid) {
+			var url = "https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v="+vid+"&format=json"
+			let response = await fetch(url);
+			let youjson = await response.text();
+			if (response.ok){
+				alert( "BEEP");
+			}
 			document.getElementById("messme").innerHTML = youjson;
 		}
 	</script>
