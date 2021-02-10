@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h1> Welcome to Gunge </h1>
+
+	<p id = "messme"> doo doo</p>
+	<script>
+		function aler(sttext){
+			document.getElementById("messme").innerHTML = sttext;
+		}
+
+		async function crookedhilary(){
+			aler("get url");
+			var url = "http://tweet.onerandom.com";
+			aler("url is " + url);
+			let response = await fetch(url);
+			aler("got response");
+			//alert(response.text());
+			alert(response.statustext);
+			alert(response.status);
+			aler("OK");
+			aler(response.ok);
+		}
+
+
+		crookedhilary();
+
+	</script>
+</body>	
+</html>

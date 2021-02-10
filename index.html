@@ -4,48 +4,7 @@
 	<h1> Welcome to Gunge </h1>
 
 	<p id = "messme"> doo </p>
-	<script>
-
-		function aler(sttext){
-			document.getElementById("messme").innerHTML = sttext;
-		}
-
-		function placeTub(vid){
-                        var ifrm = document.createElement("iframe")
-                        ifrm.setAttribute("src", "https://www.youtube-nocookie.com/embed/"+vid);
-                        ifrm.setAttribute("frameborder", "0");
-                        ifrm.style.width = "560px";
-                        ifrm.style.height = "480px";
-                        ifrm.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-                        document.body.appendChild(ifrm);
-                }
-
-
-		const Http = new XMLHttpRequest();
-		aler("set the url");
-		var search = "goo";
-		var url = "https://www.youtuberandom.com";
-		aler("getting url");
-		Http.open("GET", url);
-		Http.send();
-		aler("sent url");
-		Http.onreadystatechange=function(){
-			if(this.readyState==4 && this.status==200){
-				aler("found");
-				var str = Http.responseText
-				let re = /videoId:"[a-zA-Z0-9-_]{11}/g
-				aler("gonna do the reggie");
-				var vid_arr = str.match(re);
-				var vid = vid_arr[0].slice(9);
-
-				aler("regex found");
-				placeTub(vid);
-				aler("vid playing");
-			} else {
-				aler("ready state: "+this.readyState+", status: " + this.status);
-			}
-		}
-		
-	</script>
+	<script src="main.js"></script>
+	<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 </body>	
 </html>
