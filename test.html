@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<h1> Welcome to Gunge </h1>
+
+	<p id = "messme"> doo </p>
+	<script>
+		async function myFetch() {
+			let response = await fetch("https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v=1Xy7UP_5Fto&format=json");
+			if (!response.ok) {
+				throw new Error("HTTP error! status: ${response.status}");
+			} else {
+				return await response.text();
+			}
+		}
+
+		myFetch().then((blob) => {
+			document.getElementById("messme").innerHTML = blob;
+		}).catch(e => console.log(e));
+	</script>
+</body>	
+</html>
