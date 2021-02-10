@@ -5,56 +5,28 @@
 
 	<p id = "messme"> doo </p>
 	<script>
-
-		//checkTub("1Xy7UP_5Fto");
-		async function checkTub(vid) {
-			var url = "https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v="+vid+"&format=json"
+		alert("init");
+		getVid("root").then(alert("finished"));
+		alert("func");
+		async function getVid(search) {
+			alert("started");
+			//var url = "https://www.youtube.com/results?search_query="+search+"&sp=CAISAhAB";
+			var url = "https://www.youtube.com/results?search_query="+search+"&sp=CAISAhAA";
+			alert("about to get url")
 			let response = await fetch(url);
-			return response;
-			//let youjson = await response.text();
-			//if (response.ok){
-			//	alert( "BEEP");
-			//}
-			//document.getElementById("messme").innerHTML = youjson;
+			alert("got url");
+			let out = await response.text();
+			alert("got response");
+
+			//let re = /"videoId":"[a-zA-Z0-9-_]{11}/g;
+			let re = /"videoId":"[a-zA-Z0-9-_]{11}/g
+			var vid_arr = out.match(re);
+			alert("regex found")
+			console.log(vid_arr);
+			alert(vid_arr);
+			alert("vid_Arr printed")
+
 		}
-
-		function genVID() {
-			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
-			var res = "";
-			var char_len = chars.length;
-			for ( var i = 0; i < 11; i++){
-				res += chars.charAt(Math.floor(Math.random() * char_len));
-			}
-			return res;
-		}
-
-		async function getvalidVid(){
-			vid = genVID();
-			alert("VID: " + vid);
-			vid = "1Xy7UP_5Fto";
-			var url = "https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v="+vid+"&format=json"
-			let response = await fetch(url);
-			if (!response.ok) {
-				throw new Error("HTTP ERROR");
-			} else {
-				return vid;
-			}
-		}
-		
-		function placeTub(vid){
-			var ifrm = document.createElement("iframe")
-			ifrm.setAttribute("src", "https://www.youtube-nocookie.com/embed/"+vid);
-			ifrm.setAttribute("frameborder", "0");
-			ifrm.style.width = "560px";
-			ifrm.style.height = "480px";
-			ifrm.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-			document.body.appendChild(ifrm);
-			//document.getElementById("messme").innerHTML = jsonobj;
-		}
-
-
-		getvalidVid().then(placeTub);
-
 	</script>
 </body>	
 </html>

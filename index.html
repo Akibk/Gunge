@@ -3,47 +3,49 @@
 <body>
 	<h1> Welcome to Gunge </h1>
 
-	<p id = "messme"> doo doo</p>
+	<p id = "messme"> doo </p>
 	<script>
 
-		function genVID() {
-			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
-			var res = "";
-			var char_len = chars.length;
-			for ( var i = 0; i < 11; i++){
-				res += chars.charAt(Math.floor(Math.random() * char_len));
-			}
-			return res;
+		function aler(sttext){
+			document.getElementById("messme").innerHTML = sttext;
 		}
 
-		async function getvalidVid(){
-			vid = genVID();
-			//vid = "1Xy7UP_5Fto";
-			var url = "https://www.youtube.com/oembed?url=http://www.youtube.com/watch?v="+vid+"&format=json"
-			let response = await fetch(url);
-			if (!response.ok) {
+		function placeTub(vid){
+                        var ifrm = document.createElement("iframe")
+                        ifrm.setAttribute("src", "https://www.youtube-nocookie.com/embed/"+vid);
+                        ifrm.setAttribute("frameborder", "0");
+                        ifrm.style.width = "560px";
+                        ifrm.style.height = "480px";
+                        ifrm.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+                        document.body.appendChild(ifrm);
+                }
 
-				document.getElementById("messme").innerHTML = vid;
-				return await getvalidVid();
+
+		const Http = new XMLHttpRequest();
+		aler("set the url");
+		var search = "goo";
+		var url = "https://www.youtuberandom.com";
+		aler("getting url");
+		Http.open("GET", url);
+		Http.send();
+		aler("sent url");
+		Http.onreadystatechange=function(){
+			if(this.readyState==4 && this.status==200){
+				aler("found");
+				var str = Http.responseText
+				let re = /videoId:"[a-zA-Z0-9-_]{11}/g
+				aler("gonna do the reggie");
+				var vid_arr = str.match(re);
+				var vid = vid_arr[0].slice(9);
+
+				aler("regex found");
+				placeTub(vid);
+				aler("vid playing");
 			} else {
-				return vid;
+				aler("ready state: "+this.readyState+", status: " + this.status);
 			}
 		}
 		
-		function placeTub(vid){
-			var ifrm = document.createElement("iframe")
-			ifrm.setAttribute("src", "https://www.youtube-nocookie.com/embed/"+vid);
-			ifrm.setAttribute("frameborder", "0");
-			ifrm.style.width = "560px";
-			ifrm.style.height = "480px";
-			ifrm.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-			document.body.appendChild(ifrm);
-			//document.getElementById("messme").innerHTML = jsonobj;
-		}
-
-
-		getvalidVid().then(placeTub);
-
 	</script>
 </body>	
 </html>
