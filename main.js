@@ -1,5 +1,5 @@
 aler("DOOT");
-getTub();
+//getTub();
 getRed();
 
 function aler(sttext) {
@@ -33,18 +33,34 @@ function placeRed(LINK, SUBR, TITLE) {
 }
 
 function getrndSub() {
+	const redlist = ["viXra_revA", "vixra", "Discontinence", "sorceryofthespectacle"];
+	var redout = redlist[ Math.floor(Math.random() * redlist.length) ];
+	return redout;
+}
+
+function getrndoSub() {
 	const tot_line = 1082971;
 	const HTTP = new XMLHttpRequest();
-	//const url = "./subreddits.txt";
+	//const url = "subreddits.txt";
+	const url = "https://old.reddit.com/r/viXra_revA/wiki/index/.json";	
 	HTTP.open("GET", url);
+	//HTTP.withCredentials = true;
+	//HTTP.setRequestHeader("Access-Control-Allow-Origin", '*'); 
 	HTTP.send();
 	HTTP.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
+			aler("got the file");
 			const filecontent = this.responseText;
+			aler("converting to lines");
 			const filelines = filecontent.split('\n');
+			aler("example line: " + filelines[0]);
 			const idx = Math.floor(Math.random() * tot_line);
+			aler("index: "+idx);
 			const sub = filelines[idx];
+			aler("got sub: "+sub);
 			return sub;
+		} else {
+			aler("getting list: "+this.responseURL+", state: " + this.readyState + " status: "+this.status);
 		}
 	}
 }
@@ -71,7 +87,7 @@ function getTub() {
 			placeTub(vid);
 			aler("vid playing");
 		} else {
-			aler("vid ready state: " + this.readyState + ", status: " + this.status);
+			aler("vid from: "+this.responseURL+" ready state: " + this.readyState + ", status: " + this.status);
 		}
 	}
 }
@@ -79,7 +95,9 @@ function getTub() {
 function getRed() {
 
 	const HTTP = new XMLHttpRequest();
+	aler("getrndSub");
 	let SUBR = getrndSub();
+	aler(SUBR);
 
 	const url = "http://www.reddit.com/r/" + SUBR + "/.json";
 	HTTP.open("GET", url);
@@ -97,7 +115,7 @@ function getRed() {
 
 			placeRed(LINK, SUBR, TITLE);
 		} else {
-			aler("reddit rstate: " + this.readyState + " status: " + this.status);
+			aler("reddit: "+SUBR+" rstate: " + this.readyState + " status: " + this.status);
 		}
 	}
 }
