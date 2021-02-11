@@ -24,12 +24,40 @@ function placeTwat(tweet) {
 	document.body.appendChild(blkq);
 }
 
-function placeRed(LINK, SUBR, TITLE) {
-	var blkq = document.createElement("blockquote");
-	blkq.classList.add("quote");
-	blkq.setAttribute("class", "reddit-card");
-	blkq.innerHTML = "<a href=" + LINK + ">" + TITLE + "</a> from <a href=\"http://www.reddit.com/" + SUBR + "\">" + SUBR + "</a>";
-	document.body.appendChild(blkq);
+function placeRed(LINK, SUBR, TITLE){
+	const quotesEl = document.querySelector('.quotes');
+	const quoteEl = document.createElement('blockquote');
+	quoteEl.classList.add('quote');
+	quoteEl.setAttribute("class", "reddit-card");
+	let url = "<a href=\"https://old.reddit.com" + LINK + "\">" + TITLE + "</a> from <a href=\"http://www.reddit.com" + SUBR + "\">" + SUBR + "</a>";
+	quoteEl.innerHTML = url;
+	//quoteEl.innerHTML = `<a href="https://old.reddit.com/r/Military/comments/lgioio/prince_harry_recently_won_a_court_case_against_a/?ref=share&ref_source=embed">Prince Harry recently won a court case against a news rag, and will be donating the winnings to the Invictus fund for disabled Veterans.</a> from <a href="http://www.reddit.com/r/Military">r/Military</a>`;
+	quotesEl.appendChild(quoteEl);
+
+
+	const scr = document.createElement("script");
+	scr.charset = "UTF-8";
+	scr.async = true;
+	scr.src = "https://embed.redditmedia.com/widgets/platform.js";
+	quotesEl.appendChild(scr);
+
+}
+
+
+
+function plaeRed(LINK, SUBR, TITLE) {
+	const posts = document.querySelector('.quotes');
+	const quote = document.createElement('blockquote');
+	quote.classList.add('quote');
+	quote.setAttribute("class", "reddit-card");
+	quote.innerHTML = "<a href=" + LINK + ">" + TITLE + "</a> from <a href=\"http://www.reddit.com/" + SUBR + "\">" + SUBR + "</a>";
+	posts.appendChild(quote);
+
+	const scr = document.createElement("script");
+	scr.charset = "UTF-8";
+	scr.async = true;
+	scr.src = "https://embed.redditmedia.com/widgets/platform.js";
+	posts.appendChild(scr);
 }
 
 function getrndSub() {
