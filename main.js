@@ -1,10 +1,14 @@
-function aler(sttext){
+aler("DOOT");
+getTub();
+getRed();
+
+function aler(sttext) {
 	document.getElementById("messme").innerHTML = sttext;
 }
 
-function placeTub(vid){
-	var ifrm = document.createElement("iframe")
-	ifrm.setAttribute("src", "https://www.youtube-nocookie.com/embed/"+vid);
+function placeTub(vid) {
+	var ifrm = document.createElement("iframe");
+	ifrm.setAttribute("src", "https://www.youtube-nocookie.com/embed/" + vid);
 	ifrm.setAttribute("frameborder", "0");
 	ifrm.style.width = "560px";
 	ifrm.style.height = "480px";
@@ -12,66 +16,88 @@ function placeTub(vid){
 	document.body.appendChild(ifrm);
 }
 
-function placeTwat(tweet){
+function placeTwat(tweet) {
 	var blkq = document.createElement("blockquote");
-	blkq.classList.add("quote")
+	blkq.classList.add("quote");
 	blkq.setAttribute("class", "twitter-tweet");
 	blkq.innerHTML = tweet;
-	document.body.appendChild(x);
+	document.body.appendChild(blkq);
 }
 
-const Http = new XMLHttpRequest();
-aler("set the url");
-var search = "goo";
-var url = "https://www.youtuberandom.com";
-aler("getting url");
-Http.open("GET", url);
-Http.send();
-aler("sent url");
-Http.onreadystatechange=function(){
-	if(this.readyState==4 && this.status==200){
-		aler("found");
-		var str = Http.responseText
-		let re = /videoId:"[a-zA-Z0-9-_]{11}/g
-		aler("gonna do the reggie");
-		var vid_arr = str.match(re);
-		var vid = vid_arr[0].slice(9);
+function placeRed(LINK, SUBR, TITLE) {
+	var blkq = document.createElement("blockquote");
+	blkq.classList.add("quote");
+	blkq.setAttribute("class", "reddit-card");
+	blkq.innerHTML = "<a href=" + LINK + ">" + TITLE + "</a> from <a href=\"http://www.reddit.com/" + SUBR + "\">" + SUBR + "</a>";
+	document.body.appendChild(blkq);
+}
 
-		aler("regex found");
-		placeTub(vid);
-		aler("vid playing");
-	} else {
-		aler("vid ready state: "+this.readyState+", status: " + this.status);
+function getrndSub() {
+	const tot_line = 1082971;
+	const HTTP = new XMLHttpRequest();
+	//const url = "./subreddits.txt";
+	HTTP.open("GET", url);
+	HTTP.send();
+	HTTP.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			const filecontent = this.responseText;
+			const filelines = filecontent.split('\n');
+			const idx = Math.floor(Math.random() * tot_line);
+			const sub = filelines[idx];
+			return sub;
+		}
 	}
 }
 
+function getTub() {
 
-const Httap = new XMLHttpRequest();
-aler("set the url");
-var ural = "http://tweet.onerandom.com";
-aler("getting url");
-Httap.open("GET", ural);
-Httap.withCredentials = true;
-Httap.setRequestHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
-Httap.setRequestHeader("Accept-Language", "en-US,en;q=0.5");
-Httap.setRequestHeader("Connection", "keep-alive");
-Httap.setRequestHeader("Upgrade-Insecure-Requests", "1");
+	const Http = new XMLHttpRequest();
+	aler("set the url");
+	const url = "https://www.youtuberandom.com";
+	aler("getting url");
+	Http.open("GET", url);
+	Http.send();
+	aler("sent url");
+	Http.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			aler("found");
+			const str = Http.responseText;
+			const re = /videoId:"[a-zA-Z0-9-_]{11}/g;
+			aler("gonna do the reggie");
+			const vid_arr = str.match(re);
+			const vid = vid_arr[0].slice(9);
 
-Httap.send();
-aler("sent url: " + ural);
-Httap.onreadystatechange=function(){
-	if(this.readyState==4 && this.status==200){
-		aler("found");
-		var star = Http.responseText
-		let rae = /<block[\s\S]+?kquote>/g
-		aler("gonna do the reggie");
-		var twe_arr = star.match(rae);
-		var tweet = twe_arr[0];
+			aler("regex found");
+			placeTub(vid);
+			aler("vid playing");
+		} else {
+			aler("vid ready state: " + this.readyState + ", status: " + this.status);
+		}
+	}
+}
 
-		aler("regex found");
-		placeTwat(tweet);
-		aler("tweet tweeting");
-	} else {
-		aler("tweet ready state: "+this.readyState+", status: " + this.statustext + ", text: " + this.responsetext);
+function getRed() {
+
+	const HTTP = new XMLHttpRequest();
+	let SUBR = getrndSub();
+
+	const url = "http://www.reddit.com/r/" + SUBR + "/.json";
+	HTTP.open("GET", url);
+	HTTP.send();
+	HTTP.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			var jason = JSON.parse(this.readtext);
+			const tot_len = jason.data.children.length;
+			const rndthread = Math.floor(Math.random() * tot_len);
+			const data_jason = jason.data.children[rndthread].data;
+
+			const TITLE = data_jason.title;
+			const LINK = data_jason.permalink;
+			SUBR = "/r/" + SUBR;
+
+			placeRed(LINK, SUBR, TITLE);
+		} else {
+			aler("reddit rstate: " + this.readyState + " status: " + this.status);
+		}
 	}
 }
