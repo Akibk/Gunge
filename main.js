@@ -1,27 +1,16 @@
-aler("DOOT");
-getTub();
-getRed();
-
 function aler(sttext) {
 	document.getElementById("messme").innerHTML = sttext;
 }
 
 function placeTub(vid) {
-	var ifrm = document.createElement("iframe");
+	const quotesEl = document.querySelector('.quotes');
+	const ifrm = document.createElement("iframe");
 	ifrm.setAttribute("src", "https://www.youtube-nocookie.com/embed/" + vid);
 	ifrm.setAttribute("frameborder", "0");
 	ifrm.style.width = "560px";
 	ifrm.style.height = "480px";
 	ifrm.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-	document.body.appendChild(ifrm);
-}
-
-function placeTwat(tweet) {
-	var blkq = document.createElement("blockquote");
-	blkq.classList.add("quote");
-	blkq.setAttribute("class", "twitter-tweet");
-	blkq.innerHTML = tweet;
-	document.body.appendChild(blkq);
+	quotesEl.appendChild(ifrm);
 }
 
 function placeRed(LINK, SUBR, TITLE){
@@ -31,9 +20,7 @@ function placeRed(LINK, SUBR, TITLE){
 	quoteEl.setAttribute("class", "reddit-card");
 	let url = "<a href=\"https://old.reddit.com" + LINK + "\">" + TITLE + "</a> from <a href=\"http://www.reddit.com" + SUBR + "\">" + SUBR + "</a>";
 	quoteEl.innerHTML = url;
-	//quoteEl.innerHTML = `<a href="https://old.reddit.com/r/Military/comments/lgioio/prince_harry_recently_won_a_court_case_against_a/?ref=share&ref_source=embed">Prince Harry recently won a court case against a news rag, and will be donating the winnings to the Invictus fund for disabled Veterans.</a> from <a href="http://www.reddit.com/r/Military">r/Military</a>`;
 	quotesEl.appendChild(quoteEl);
-
 
 	const scr = document.createElement("script");
 	scr.charset = "UTF-8";
@@ -41,23 +28,6 @@ function placeRed(LINK, SUBR, TITLE){
 	scr.src = "https://embed.redditmedia.com/widgets/platform.js";
 	quotesEl.appendChild(scr);
 
-}
-
-
-
-function plaeRed(LINK, SUBR, TITLE) {
-	const posts = document.querySelector('.quotes');
-	const quote = document.createElement('blockquote');
-	quote.classList.add('quote');
-	quote.setAttribute("class", "reddit-card");
-	quote.innerHTML = "<a href=" + LINK + ">" + TITLE + "</a> from <a href=\"http://www.reddit.com/" + SUBR + "\">" + SUBR + "</a>";
-	posts.appendChild(quote);
-
-	const scr = document.createElement("script");
-	scr.charset = "UTF-8";
-	scr.async = true;
-	scr.src = "https://embed.redditmedia.com/widgets/platform.js";
-	posts.appendChild(scr);
 }
 
 function getrndSub() {
@@ -97,7 +67,7 @@ function getTub() {
 
 	const Http = new XMLHttpRequest();
 	aler("set the url");
-	const url = "https://www.youtuberandom.com";
+	const url = "https://www.youtuberandom.com/?r="+Math.floor(Math.random()*100000);
 	aler("getting url");
 	Http.open("GET", url);
 	Http.send();
@@ -147,3 +117,21 @@ function getRed() {
 		}
 	}
 }
+
+    window.addEventListener('scroll', () => {
+        const {
+            scrollTop,
+            scrollHeight,
+            clientHeight
+        } = document.documentElement;
+
+        if (scrollTop + clientHeight >= scrollHeight - 5) {
+		aler("DOOT");
+		getTub();
+		getRed();
+        }
+    }, {
+        passive: true
+    });
+
+getTub();
