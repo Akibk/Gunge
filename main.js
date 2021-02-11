@@ -1,5 +1,5 @@
 aler("DOOT");
-//getTub();
+getTub();
 getRed();
 
 function aler(sttext) {
@@ -104,7 +104,7 @@ function getRed() {
 	HTTP.send();
 	HTTP.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			var jason = JSON.parse(this.readtext);
+			var jason = JSON.parse(this.responseText);
 			const tot_len = jason.data.children.length;
 			const rndthread = Math.floor(Math.random() * tot_len);
 			const data_jason = jason.data.children[rndthread].data;
@@ -112,7 +112,7 @@ function getRed() {
 			const TITLE = data_jason.title;
 			const LINK = data_jason.permalink;
 			SUBR = "/r/" + SUBR;
-
+			aler("successfully got reddit post");
 			placeRed(LINK, SUBR, TITLE);
 		} else {
 			aler("reddit: "+SUBR+" rstate: " + this.readyState + " status: " + this.status);
