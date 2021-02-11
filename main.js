@@ -99,7 +99,7 @@ function getRed() {
 	let SUBR = getrndSub();
 	aler(SUBR);
 
-	const url = "http://www.reddit.com/r/" + SUBR + "/.json";
+	const url = "https://www.reddit.com/r/" + SUBR + "/.json";
 	HTTP.open("GET", url);
 	HTTP.send();
 	HTTP.onreadystatechange = function() {
