@@ -47,41 +47,7 @@ function placeRed(LINK, SUBR, TITLE){
 
 }
 
-function getrndSub() {
-	const redlist = ["viXra_revA", "vixra", "Discontinence", "sorceryofthespectacle"];
-	var redout = redlist[ Math.floor(Math.random() * redlist.length) ];
-	return redout;
-}
-
-function getrndoSub() {
-	const tot_line = 1082971;
-	const HTTP = new XMLHttpRequest();
-	//const url = "subreddits.txt";
-	const url = "https://old.reddit.com/r/viXra_revA/wiki/index/.json";	
-	HTTP.open("GET", url);
-	//HTTP.withCredentials = true;
-	//HTTP.setRequestHeader("Access-Control-Allow-Origin", '*'); 
-	HTTP.send();
-	HTTP.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			aler("got the file");
-			const filecontent = this.responseText;
-			aler("converting to lines");
-			const filelines = filecontent.split('\n');
-			aler("example line: " + filelines[0]);
-			const idx = Math.floor(Math.random() * tot_line);
-			aler("index: "+idx);
-			const sub = filelines[idx];
-			aler("got sub: "+sub);
-			return sub;
-		} else {
-			aler("getting list: "+this.responseURL+", state: " + this.readyState + " status: "+this.status);
-		}
-	}
-}
-
 function getTub() {
-
 	const Http = new XMLHttpRequest();
 	aler("set the url");
 	const url = "https://www.youtuberandom.com/?r="+Math.floor(Math.random()*100000);
