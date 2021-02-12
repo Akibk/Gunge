@@ -1,0 +1,19 @@
+
+body {
+	background-color: white;
+}
+
+.header { 
+  padding: 1em 1em;
+  background: #555;
+  color: #f1f1f1;
+  top: 0em;
+}
+
+#fixedhead {
+  background: #000;
+  position: fixed;
+  top: 0.8em;
+  left: 8em;
+}
+

@@ -139,12 +139,15 @@ function getRed() {
 		aler("DOOT");
 		getTub();
 		getRed();
+		getRed();
 		//placeTwat();
         }
     }, {
         passive: true
     });
 
+getRed();
+getTub();
 getTub();
 getRed();
 //getTwat();
