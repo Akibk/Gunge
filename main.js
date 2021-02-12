@@ -68,7 +68,8 @@ function getTub() {
 			placeTub(vid);
 			aler("vid playing");
 		} else {
-			aler("vid from: "+this.responseURL+" ready state: " + this.readyState + ", status: " + this.status);
+			aler("youtube is A BIG DOODOO");
+			//aler("vid from: "+this.responseURL+" ready state: " + this.readyState + ", status: " + this.status);
 		}
 	}
 }
@@ -120,7 +121,8 @@ function getRed() {
 			aler("successfully got reddit post");
 			placeRed(LINK, SUBR, TITLE);
 		} else {
-			aler("reddit: "+SUBR+" rstate: " + this.readyState + " status: " + this.status);
+			aler("REDDIT IS A BIG DOODOO");
+			//aler("reddit: "+SUBR+" rstate: " + this.readyState + " status: " + this.status);
 		}
 	}
 }
