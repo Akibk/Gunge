@@ -1,49 +1,52 @@
 function aler(sttext) {
-	document.getElementById("messme").innerHTML = sttext;
+	//print to webpage 
+	document.getElementById("messmeup").innerHTML = sttext;
 }
 
 function placeTub(vid) {
-	const quotesEl = document.querySelector('.quotes');
-	const ifrm = document.createElement("iframe");
-	ifrm.setAttribute("src", "https://www.youtube-nocookie.com/embed/" + vid);
-	ifrm.setAttribute("frameborder", "0");
-	ifrm.style.width = "560px";
-	ifrm.style.height = "480px";
-	ifrm.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
-	quotesEl.appendChild(ifrm);
+	const postsEl = document.querySelector('.posts');
+	const tub = document.createElement("iframe");
+	tub.setAttribute("src", "https://www.youtube-nocookie.com/embed/" + vid);
+	tub.setAttribute("frameborder", "0");
+	tub.style.width = "560px";
+	tub.style.height = "480px";
+	tub.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+	postsEl.appendChild(tub);
 }
 
 function placeTwat(tweet){
-	const quotesEl = document.querySelector('.quotes');
-	const quoteEl = document.createElement('blockquote');
-	quoteEl.classList.add('quote');
-	quoteEl.setAttribute("class", "twitter-tweet");
+	const postsEl = document.querySelector('.posts');
+	const twat = document.createElement('blockquote');
+	twat.classList.add('quote');
+	twat.setAttribute("class", "twitter-tweet");
 	let url = '<a href="https://twitter.com/"'+tweet+'>F</a>';
-	quoteEl.innerHTML = url;
-	quotesEl.appendChild(quoteEl);
+	twat.innerHTML = url;
+	postsEl.appendChild(twat);
 
 	const scr = document.createElement("script");
 	scr.charset = "UTF-8";
 	scr.async = true;
 	scr.src = "https://platform.twitter.com/widgets.js";
-	quotesEl.appendChild(scr);
+	postsEl.appendChild(scr);
 
 }
 
 function placeRed(LINK, SUBR, TITLE){
-	const quotesEl = document.querySelector('.quotes');
-	const quoteEl = document.createElement('blockquote');
-	quoteEl.classList.add('quote');
-	quoteEl.setAttribute("class", "reddit-card");
+	//place url data
+	const postsEl = document.querySelector('.posts');
+	const red = document.createElement('blockquote');
+	red.classList.add('quote');
+	red.setAttribute("class", "reddit-card");
 	let url = "<a href=\"https://old.reddit.com" + LINK + "\">" + TITLE + "</a> from <a href=\"http://www.reddit.com" + SUBR + "\">" + SUBR + "</a>";
-	quoteEl.innerHTML = url;
-	quotesEl.appendChild(quoteEl);
+	red.innerHTML = url;
+	postsEl.appendChild(red);
 
+	//place formatting script
 	const scr = document.createElement("script");
 	scr.charset = "UTF-8";
 	scr.async = true;
 	scr.src = "https://embed.redditmedia.com/widgets/platform.js";
-	quotesEl.appendChild(scr);
+	postsEl.appendChild(scr);
 
 }
 
